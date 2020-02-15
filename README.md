@@ -1,9 +1,7 @@
-# Fish Theme: clearance
+# Fish Theme: clearance (with ssh prompt)
 
-A minimalist [fish shell](http://fishshell.com/) theme for people who use git
+This is a clearance theme modification I wrote a long time ago and just now I decided to fork the original theme and publish it on GitHub.
 
-![clearance theme](https://raw.github.com/cseelus/clearance-fish/master/clearance-fish_preview.png)
+With this modification, the ssh server running fish shell will display the user and host name so when you ssh you'll on every prompt see on which machine you're working on. I found this very useful on some other prompt but since I switched to clearance, I didn't have that feature anymore.
 
-## Like it?
-
-Check out other versions of this theme for OSX Terminal or VIM!
+You can find the original clearance theme [here](https://github.com/oh-my-fish/theme-clearance).

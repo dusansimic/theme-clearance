@@ -4,6 +4,7 @@
 # - Virtualenv name (if applicable, see https://github.com/adambrenecki/virtualfish)
 # - Current directory name
 # - Git branch and dirty state (if inside a git repo)
+# - SSH user and host if using it
 
 function _git_branch_name
   echo (command git symbolic-ref HEAD 2> /dev/null | sed -e 's|^refs/heads/||')
@@ -11,6 +12,10 @@ end
 
 function _git_is_dirty
   echo (command git status -s --ignore-submodules=dirty 2> /dev/null)
+end
+
+function _is_ssh
+  echo "$SSH_CONNECTION"
 end
 
 function fish_prompt
@@ -22,6 +27,7 @@ function fish_prompt
   set -l blue (set_color blue)
   set -l green (set_color green)
   set -l normal (set_color normal)
+  set -l special_gray (set_color 93A1A1)
 
   set -l cwd $blue(pwd | sed "s:^$HOME:~:")
 
@@ -48,6 +54,22 @@ function fish_prompt
       set git_info '(' $green $git_branch $normal ')'
     end
     echo -n -s ' · ' $git_info $normal
+  end
+
+  # Show user and host if ssh
+  if [ (_is_ssh) ]
+    set -l user (whoami)
+    set -l host (hostname -s)
+
+    if [ "$user" = "root" ]
+      set user "$user"
+    else
+      set user "$special_gray$user"
+    end
+
+    set user_and_host "$user$special_gray@$host"
+
+    echo -n -s ' · ' $user_and_host $normal
   end
 
   set -l prompt_color $red
